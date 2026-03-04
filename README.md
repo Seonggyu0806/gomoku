@@ -1,44 +1,44 @@
-# Real-time Gomoku
+# 실시간 오목 (Real-time Gomoku)
 
-A real-time, browser-based Gomoku (Five in a Row) game built with Node.js, Express, and Socket.IO.
+Node.js, Express, Socket.IO를 사용하여 만든 실시간 브라우저 기반 오목 게임입니다.
 
-## Features
+## 주요 기능
 
-- **Online Multiplayer**: Create or join a room using a custom Room ID to play against your friends in real-time.
-- **Solo Play (Practice Mode)**: Play both Black and White sides yourself to practice strategies.
-- **Spectator Mode**: If a room is full (2 players), additional users joining the same room will automatically become spectators and can watch the game live.
-- **Renju Rules (Forbidden Moves)**: To balance the game, strict Renju rules are applied to the Black player:
-  - **Overline (6+)**: Placing 6 or more stones in a row is forbidden.
-  - **Double Four (4-4)**: Creating two simultaneous lines of four is forbidden.
-  - **Double Three (3-3)**: Creating two simultaneous lines of open threes is forbidden.
-- **Real-time Engine**: Powered by Socket.IO for instant move broadcasting, turn management, and game state synchronization.
+- **온라인 멀티플레이**: 사용자 정의 방(Room ID)을 만들거나 참가하여 친구들과 실시간으로 오목을 즐길 수 있습니다.
+- **혼자 하기 (연습 모드)**: 흑돌과 백돌을 혼자서 모두 두며 전략을 연습할 수 있습니다.
+- **관전 모드**: 방에 이미 2명의 플레이어가 가득 찬 경우, 이후에 접속하는 사람들은 자동으로 관전자가 되어 실시간으로 게임을 지켜볼 수 있습니다.
+- **렌주룰 (흑돌 금수 규칙)**: 게임의 밸런스를 맞추기 위해 흑돌에게 엄격한 렌주룰이 적용됩니다:
+  - **장목 (6목 이상)**: 6개 이상의 돌을 연속으로 두는 것은 금지됩니다.
+  - **4-4 (쌍사)**: 4개가 연결되는 선을 동시에 2개 만드는 것은 금지됩니다.
+  - **3-3 (쌍삼)**: 열린 3개가 연결되는 선을 동시에 2개 만드는 것은 금지됩니다.
+- **실시간 엔진**: Socket.IO를 기반으로 즉각적인 착수 브로드캐스팅, 턴 관리 및 게임 상태 동기화를 제공합니다.
 
-## Tech Stack
+## 기술 스택
 
-- **Backend**: Node.js, Express
-- **Real-time Communication**: Socket.IO
-- **Frontend**: HTML, Vanilla CSS, JavaScript
+- **백엔드**: Node.js, Express
+- **실시간 통신**: Socket.IO
+- **프론트엔드**: HTML, Vanilla CSS, JavaScript
 
-## Installation and Run
+## 설치 및 실행
 
-1. Clone the repository.
-2. Install dependencies:
+1. 저장소를 클론합니다.
+2. 종속성 패키지를 설치합니다:
    ```bash
    npm install
    ```
-3. Start the server:
+3. 서버를 시작합니다:
    ```bash
    npm start
    ```
-   Or for development mode:
+   또는 개발 모드로 실행:
    ```bash
    npm run dev
    ```
-4. Open your browser and navigate to `http://localhost:3000`.
+4. 브라우저를 열고 `http://localhost:3000`에 접속합니다.
 
-## How to Play
+## 게임 방법
 
-1. Enter a Room Name on the home screen and click "Join Game" to play online.
-2. Alternatively, click "Play Alone (Practice)" to start a solo game.
-3. Black moves first. Click on the board intersections to place your stones.
-4. The first player to align exactly 5 stones horizontally, vertically, or diagonally wins.
+1. 홈 화면에서 방 이름(Room Name)을 입력하고 "Join Game"을 클릭하여 온라인 게임에 참여합니다.
+2. 혼자 연습하고 싶다면 "Play Alone (Practice)" 버튼을 클릭합니다.
+3. 흑돌이 먼저 시작합니다. 보드의 교차점을 클릭하여 돌을 놓습니다.
+4. 가로, 세로, 혹은 대각선으로 정확히 5개의 돌을 먼저 연결하는 플레이어가 승리합니다.
