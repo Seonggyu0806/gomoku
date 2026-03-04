@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Gomoku</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Login / Room Selection -->
+        <div id="login-screen" class="screen active">
+            <h1>Gomoku Online</h1>
+            <div class="input-group">
+                <input type="text" id="room-input" placeholder="Enter Room Name" />
+                <button id="join-btn">Join Game</button>
+            </div>
+            <div style="margin-top: 15px; text-align: center;">
+                <button id="solo-btn"
+                    style="width: 100%; background-color: #4CAF50; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Play
+                    Alone (Practice)</button>
+            </div>
+        </div>
+
+        <!-- Game Board -->
+        <div id="game-screen" class="screen">
+            <header>
+                <div class="status-bar">
+                    <span id="player-role">You: <span class="role-indicator">Spectator</span></span>
+                    <span id="turn-indicator">Turn: Black</span>
+                </div>
+                <button id="restart-btn" style="display:none;">Restart</button>
+            </header>
+
+            <div class="board-container">
+                <div id="omok-board" class="board"></div>
+            </div>
+
+            <div id="message-area"></div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+
+</html>

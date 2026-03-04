@@ -1,0 +1,281 @@
+:root {
+    --bg-color: #eef2f5;
+    --primary-color: #3b82f6;
+    --board-bg: #eab676;
+    /* Wood-ish color */
+    --board-line: #5c4033;
+    --stone-black: #1f2937;
+    --stone-white: #f9fafb;
+    --accent-red: #ef4444;
+}
+
+body {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Login Screen */
+#login-screen h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--stone-black);
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+}
+
+button {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+button:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+}
+
+/* Game Screen */
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.status-bar {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.role-indicator {
+    font-weight: 700;
+}
+
+/* Board */
+/* Board */
+.board-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    width: 100%;
+    max-width: 500px;
+    /* Optional, helps keep it from getting too huge */
+    /* Responsive width */
+    aspect-ratio: 1 / 1;
+
+    /* Wood styling */
+    background: linear-gradient(135deg, #e3b070 0%, #d19a55 50%, #bc823a 100%);
+    padding: 20px;
+    /* The empty space between edge of wood and the grid */
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.1);
+
+    position: relative;
+    /* Outline the wood block gently */
+    border-top: 1px solid #f0c58a;
+    border-left: 1px solid #f0c58a;
+    border-bottom: 2px solid #8B5A2B;
+    border-right: 2px solid #8B5A2B;
+}
+
+.cell {
+    position: relative;
+    cursor: pointer;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+/* Grid Lines */
+.cell::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--board-line);
+    z-index: 1;
+    transform: translateY(-50%);
+}
+
+.cell::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background-color: var(--board-line);
+    z-index: 1;
+    transform: translateX(-50%);
+}
+
+/* Hide outer half of lines for the edge cells to form the outer border */
+/* Top edge */
+.cell[data-row="0"]::after {
+    top: 50%;
+    height: 50%;
+}
+
+/* Bottom edge */
+.cell[data-row="14"]::after {
+    height: 50%;
+}
+
+/* Left edge */
+.cell[data-col="0"]::before {
+    left: 50%;
+    width: 50%;
+}
+
+/* Right edge */
+.cell[data-col="14"]::before {
+    width: 50%;
+}
+
+/* Star Points (Tengen and Hoshi) generated in JS */
+.star-point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--board-line);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+/* Trigger zone for click (invisible) */
+.cell-trigger {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    z-index: 10;
+    /* rounded for better feel */
+    border-radius: 50%;
+}
+
+.cell-trigger:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Stones */
+.stone {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    z-index: 5;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transform: scale(0);
+    animation: placeStone 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.stone.black {
+    background: radial-gradient(circle at 30% 30%, #666 0%, #222 40%, #050505 100%);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), inset -2px -2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.stone.white {
+    background: radial-gradient(circle at 30% 30%, #fff 0%, #fdfdfd 40%, #d4d4d4 100%);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes placeStone {
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#message-area {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    min-height: 2rem;
+    color: var(--stone-black);
+    text-align: center;
+    transition: color 0.3s;
+}
+
+#restart-btn {
+    display: none;
+    margin-top: 10px;
+    background-color: var(--accent-red);
+    animation: fadeIn 0.5s;
+}
+
+#restart-btn:hover {
+    background-color: #dc2626;
+}
+
+.forbidden {
+    background-color: rgba(255, 0, 0, 0.2);
+}
